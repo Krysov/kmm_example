@@ -23,18 +23,18 @@ class GridTransformsUnitTest {
         cam.projection.viewHeight = 300
 
         val tile1 = GridRect()
-        tile1.x = 1
-        tile1.y = 1
-        tile1.w = 1
-        tile1.h = 1
-        var output1 = ViewRect()
+        tile1.x = 1.0
+        tile1.y = 1.0
+        tile1.w = 1.0
+        tile1.h = 1.0
+        var output1: ViewRect
 
         val tile2 = GridRect()
-        tile2.x = 2
-        tile2.y = 3
-        tile2.w = 2
-        tile2.h = 1
-        var output2 = ViewRect()
+        tile2.x = 2.0
+        tile2.y = 3.0
+        tile2.w = 2.0
+        tile2.h = 1.0
+        var output2: ViewRect
 
         output1 = transformGridToViewSpace(cam, tile1)
         assertEquals(75, output1.x)
@@ -47,8 +47,8 @@ class GridTransformsUnitTest {
         assertEquals(150, output2.w)
         assertEquals(75, output2.h)
 
-        cam.orientation.offsetX = 1
-        cam.orientation.offsetY = 1
+        cam.orientation.offsetX = 1.0
+        cam.orientation.offsetY = 1.0
         output1 = transformGridToViewSpace(cam, tile1)
         assertEquals(0, output1.x)
         assertEquals(0, output1.y)
