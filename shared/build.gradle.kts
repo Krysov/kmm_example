@@ -5,8 +5,8 @@ plugins {
     id("com.android.library")
     id("kotlin-android-extensions")
 }
-group = "kmm.example.app"
-version = "1.0-SNAPSHOT"
+group = (gradle as ExtensionAware).extra.get("APP_BUNDLE_GROUP") as String
+version = (gradle as ExtensionAware).extra.get("APP_VERSION_NAME") as String
 
 repositories {
     gradlePluginPortal()
@@ -33,7 +33,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.0")
+                implementation("com.google.android.material:material:1.3.0")
             }
         }
         val androidTest by getting {
@@ -47,16 +47,19 @@ kotlin {
     }
 }
 android {
-    compileSdkVersion(29)
+    compileSdkVersion((gradle as ExtensionAware).extra.get("ANDROID_SDK_COMPILE") as Int)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        minSdkVersion((gradle as ExtensionAware).extra.get("ANDROID_SDK_MIN") as Int)
+        targetSdkVersion((gradle as ExtensionAware).extra.get("ANDROID_SDK_TARGET") as Int)
+        versionCode = (gradle as ExtensionAware).extra.get("APP_VERSION_CODE") as Int
+        versionName = (gradle as ExtensionAware).extra.get("APP_VERSION_NAME") as String
     }
     buildTypes {
         getByName("release") {
+            isMinifyEnabled = true
+        }
+        getByName("debug") {
             isMinifyEnabled = false
         }
     }
