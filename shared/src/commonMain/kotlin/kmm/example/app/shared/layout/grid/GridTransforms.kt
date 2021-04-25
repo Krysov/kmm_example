@@ -1,5 +1,8 @@
 package kmm.example.app.shared.layout.grid
 
+import kotlin.math.round
+import kotlin.math.sign
+
 typealias Tiles = Double
 typealias Pixels = Short
 
@@ -33,4 +36,16 @@ class ViewRect {
     var h: Pixels = 0
 }
 
-fun transformGridToViewSpace(cam: GridCamera, rect: GridRect): ViewRect {throw NotImplementedError()}
+fun transformGridToViewSpace(cam: GridCamera, rect: GridRect): ViewRect {
+    val result = ViewRect()
+    result.x = biasedRoundToShort((rect.x - cam.orientation.offsetX) * cam.projection.tileSize)
+    result.y = biasedRoundToShort((rect.y - cam.orientation.offsetY) * cam.projection.tileSize)
+    result.w = biasedRoundToShort(rect.w * cam.projection.tileSize)
+    result.h = biasedRoundToShort(rect.h * cam.projection.tileSize)
+    return result
+}
+
+private fun biasedRoundToShort(n: Double): Short {
+    val roundingBias = 0.000001 // this aims to alleviate the inconsistency with round()
+    return round(n + n.sign * roundingBias).toInt().toShort()
+}
