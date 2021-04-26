@@ -40,6 +40,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.12")
+                implementation("org.robolectric:robolectric:4.4")
+                implementation("androidx.test:core-ktx:1.3.0")
             }
         }
         val iosMain by getting
@@ -61,6 +63,11 @@ android {
         }
         getByName("debug") {
             isMinifyEnabled = false
+        }
+    }
+    testOptions {
+        unitTests { unitTestOptions ->
+            unitTestOptions.isIncludeAndroidResources = true
         }
     }
 }
