@@ -66,8 +66,8 @@ android {
         }
     }
     testOptions {
-        unitTests { unitTestOptions ->
-            unitTestOptions.isIncludeAndroidResources = true
+        unitTests {
+            unitTests.isIncludeAndroidResources = true
         }
     }
 }
