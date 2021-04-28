@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 class GridCameraModelUnitTest {
 
     private class CameraContainer(onUpdate: (camera: GridCameraModel) -> Unit) {
-        val cam = GridCameraModel::Ref{ cam -> onUpdate(cam) }
+        val cam = GridCameraModel.Ref({ cam -> onUpdate(cam) })
     }
 
     @Test

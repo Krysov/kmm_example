@@ -14,12 +14,12 @@ class GridView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    val cam = GridCameraModel::Ref{ camera ->
+    val cam = GridCameraModel.Ref({ camera ->
         measure(
             camera.projectionWidth.toInt(),
             camera.projectionWidth.toInt()
         )
-    }
+    })
 
     private val gridViews = HashMap<View, GridRect>()
     private var touchMostRecentX: Float = 0.0f

@@ -9,8 +9,11 @@ data class GridCameraModel(
     val poseY: Tiles = 0.0,
 ) {
 
-    class Ref(val onUpdate: (camera: GridCameraModel) -> Unit) {
-        private var camera = GridCameraModel()
+    class Ref(
+        val onUpdate: (camera: GridCameraModel) -> Unit,
+        private var camera: GridCameraModel = GridCameraModel(),
+    ) {
+
         fun get(): GridCameraModel = camera
         fun set(camera: GridCameraModel) {
             this.camera = camera
