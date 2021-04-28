@@ -85,7 +85,7 @@ class GridTransformsUnitTest {
             projectionTileSize = 75,
         )
         val dimen = transformsViewToGridDimen(cam, FractionalPixels(150f, 255f))
-        assertEquals(2, dimen.w.roundToInt())
-        assertEquals(3, dimen.h.roundToInt())
+        assertEquals(2, dimen.x.roundToInt())
+        assertEquals(3, dimen.y.roundToInt())
     }
 }

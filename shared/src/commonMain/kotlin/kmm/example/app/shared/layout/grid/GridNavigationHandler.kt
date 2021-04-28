@@ -16,8 +16,8 @@ class GridNavigationHandler(private val cam: GridCameraModel.Ref) {
         )
         this.cam.set(
             camera.copy(
-                poseX = camera.poseX + delta.w,
-                poseY = camera.poseY + delta.h,
+                poseX = camera.poseX + delta.x,
+                poseY = camera.poseY + delta.y,
             )
         )
         latestReferencePosition = referencePosition

@@ -2,11 +2,11 @@ package kmm.example.app.shared.layout.grid
 
 
 data class GridCameraModel(
-    val projectionWidth: Pixels = 0,
-    val projectionHeight: Pixels = 0,
-    val projectionTileSize: Pixels = 0,
-    val poseX: Tiles = 0.0,
-    val poseY: Tiles = 0.0,
+    val projectionWidth: Pixel = 0,
+    val projectionHeight: Pixel = 0,
+    val projectionTileSize: Pixel = 0,
+    val poseX: Tile = 0.0,
+    val poseY: Tile = 0.0,
 ) {
 
     class Ref(
