@@ -23,10 +23,10 @@ class ViewRect {
 
 fun transformGridToViewSpace(cam: GridCameraModel, rect: GridRect): ViewRect {
     val result = ViewRect()
-    result.x = biasedRoundToShort((rect.x - cam.orientation.offsetX) * cam.projection.tileSize)
-    result.y = biasedRoundToShort((rect.y - cam.orientation.offsetY) * cam.projection.tileSize)
-    result.w = biasedRoundToShort(rect.w * cam.projection.tileSize)
-    result.h = biasedRoundToShort(rect.h * cam.projection.tileSize)
+    result.x = biasedRoundToShort((rect.x - cam.poseX) * cam.projectionTileSize)
+    result.y = biasedRoundToShort((rect.y - cam.poseY) * cam.projectionTileSize)
+    result.w = biasedRoundToShort(rect.w * cam.projectionTileSize)
+    result.h = biasedRoundToShort(rect.h * cam.projectionTileSize)
     return result
 }
 

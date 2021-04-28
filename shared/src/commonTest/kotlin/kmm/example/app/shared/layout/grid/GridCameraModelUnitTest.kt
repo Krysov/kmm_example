@@ -1,6 +1,6 @@
 package kmm.example.app.shared.layout.grid
 
-import kmm.example.app.shared.layout.grid.GridCameraModel.Orientation
+
 import kotlin.math.roundToInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -16,20 +16,20 @@ class GridCameraModelUnitTest {
         var numCallsOnUpdate = 0
         val con = CameraContainer(onUpdate = { numCallsOnUpdate++ })
         var tmpCam = con.cam.get()
-        assertEquals(0, tmpCam.orientation.offsetX.roundToInt())
-        assertEquals(0, tmpCam.orientation.offsetY.roundToInt())
+        assertEquals(0, tmpCam.poseX.roundToInt())
+        assertEquals(0, tmpCam.poseY.roundToInt())
         assertEquals(0, numCallsOnUpdate)
 
-        con.cam.set(GridCameraModel(orientation = Orientation(offsetX = 5.0)))
+        con.cam.set(GridCameraModel(poseX = 5.0))
         assertEquals(1, numCallsOnUpdate)
 
         tmpCam = con.cam.get()
-        tmpCam = tmpCam.copy(orientation = tmpCam.orientation.copy(offsetY = 7.0))
+        tmpCam = tmpCam.copy(poseY = 7.0)
         con.cam.set(tmpCam)
         assertEquals(2, numCallsOnUpdate)
 
         tmpCam = con.cam.get()
-        assertEquals(5, tmpCam.orientation.offsetX.roundToInt())
-        assertEquals(7, tmpCam.orientation.offsetY.roundToInt())
+        assertEquals(5, tmpCam.poseX.roundToInt())
+        assertEquals(7, tmpCam.poseY.roundToInt())
     }
 }

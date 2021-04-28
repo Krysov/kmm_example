@@ -2,20 +2,12 @@ package kmm.example.app.shared.layout.grid
 
 
 data class GridCameraModel(
-    val projection: Projection = Projection(),
-    val orientation: Orientation = Orientation(),
+    val projectionWidth: Pixels = 0,
+    val projectionHeight: Pixels = 0,
+    val projectionTileSize: Pixels = 0,
+    val poseX: Tiles = 0.0,
+    val poseY: Tiles = 0.0,
 ) {
-
-    data class Projection(
-        val tileSize: Pixels = 0,
-        val viewWidth: Pixels = 0,
-        val viewHeight: Pixels = 0,
-    )
-
-    data class Orientation(
-        val offsetX: Tiles = 0.0,
-        val offsetY: Tiles = 0.0,
-    )
 
     class Ref(val onUpdate: (camera: GridCameraModel) -> Unit) {
         private var camera = GridCameraModel()

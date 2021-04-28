@@ -15,8 +15,8 @@ class GridView @JvmOverloads constructor(
 
     val cam = GridCameraModel::Ref{ camera ->
         measure(
-            camera.projection.viewWidth.toInt(),
-            camera.projection.viewWidth.toInt()
+            camera.projectionWidth.toInt(),
+            camera.projectionWidth.toInt()
         )
     }
 

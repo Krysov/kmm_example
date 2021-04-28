@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
-import kmm.example.app.shared.layout.grid.GridCameraModel.Orientation
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -19,12 +18,7 @@ class GridViewUnitTest {
     fun testAttachLayoutDetachItemViews() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val grid = GridView(context)
-        var cam = grid.cam.get().copy(
-            projection = grid.cam.get().projection.copy(
-                tileSize = 32
-            )
-        )
-        grid.cam.set(cam)
+        grid.cam.set(GridCameraModel(projectionTileSize = 32))
 
         val tile1 = GridRect()
         tile1.x = 1.0
@@ -50,7 +44,7 @@ class GridViewUnitTest {
 
         grid.measure(0, 0)
 
-        vsItem = transformGridToViewSpace(cam, tile1)
+        vsItem = transformGridToViewSpace(grid.cam.get(), tile1)
         iv = grid.getChildAt(0)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -60,7 +54,7 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        vsItem = transformGridToViewSpace(cam, tile2)
+        vsItem = transformGridToViewSpace(grid.cam.get(), tile2)
         iv = grid.getChildAt(1)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -70,10 +64,9 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        cam = cam.copy(orientation = Orientation(offsetX = -0.5, offsetY = 1.5))
-        grid.cam.set(cam)
+        grid.cam.set(grid.cam.get().copy(poseX = -0.5, poseY = 1.5))
 
-        vsItem = transformGridToViewSpace(cam, tile1)
+        vsItem = transformGridToViewSpace(grid.cam.get(), tile1)
         iv = grid.getChildAt(0)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -83,7 +76,7 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        vsItem = transformGridToViewSpace(cam, tile2)
+        vsItem = transformGridToViewSpace(grid.cam.get(), tile2)
         iv = grid.getChildAt(1)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)

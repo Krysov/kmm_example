@@ -1,9 +1,8 @@
 package kmm.example.app.shared.layout.grid
 
-import kmm.example.app.shared.layout.grid.GridCameraModel.Orientation
-import kmm.example.app.shared.layout.grid.GridCameraModel.Projection
 import kotlin.test.Test
 import kotlin.test.assertEquals
+
 
 class GridTransformsUnitTest {
 
@@ -20,11 +19,9 @@ class GridTransformsUnitTest {
         */
 
         var cam = GridCameraModel(
-            projection = Projection(
-                tileSize = 75,
-                viewWidth = 200,
-                viewHeight = 300,
-            )
+            projectionTileSize = 75,
+            projectionWidth = 200,
+            projectionHeight = 300,
         )
 
         val tile1 = GridRect()
@@ -53,10 +50,8 @@ class GridTransformsUnitTest {
         assertEquals(75, output2.h)
 
         cam = cam.copy(
-            orientation = Orientation(
-                offsetX = 1.0,
-                offsetY = 1.0,
-            )
+            poseX = 1.0,
+            poseY = 1.0,
         )
         output1 = transformGridToViewSpace(cam, tile1)
         assertEquals(0, output1.x)
@@ -70,10 +65,8 @@ class GridTransformsUnitTest {
         assertEquals(75, output2.h)
 
         cam = cam.copy(
-            orientation = Orientation(
-                offsetX = 1.5,
-                offsetY = 2.5,
-            )
+            poseX = 1.5,
+            poseY = 2.5,
         )
         output1 = transformGridToViewSpace(cam, tile1)
         assertEquals(-38, output1.x) // rounded from -37.5 to -38
