@@ -1,10 +1,11 @@
 package kmm.example.app.shared.layout.grid
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import kotlin.collections.HashMap
 
 
 class GridView @JvmOverloads constructor(
@@ -21,6 +22,8 @@ class GridView @JvmOverloads constructor(
     }
 
     private val gridViews = HashMap<View, GridRect>()
+    private var touchMostRecentX: Float = 0.0f
+    private var touchMostRecentY: Float = 0.0f
 
     fun addView(child: View, onGridAt: GridRect) {
         gridViews[child] = onGridAt
@@ -66,5 +69,33 @@ class GridView @JvmOverloads constructor(
         val left: Int = lp.leftMargin
         val top: Int = lp.topMargin
         child.layout(left, top, left + width, top + height)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                touchMostRecentX = event.x
+                touchMostRecentY = event.y
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val cam = cam.get()
+                val deltaX = (touchMostRecentX - event.x) / cam.projectionTileSize
+                val deltaY = (touchMostRecentY - event.y) / cam.projectionTileSize
+                touchMostRecentX = event.x
+                touchMostRecentY = event.y
+                this.cam.set(
+                    cam.copy(
+                        poseX = cam.poseX + deltaX,
+                        poseY = cam.poseY + deltaY,
+                    )
+                )
+            }
+            MotionEvent.ACTION_UP -> {
+                touchMostRecentX = 0f
+                touchMostRecentY = 0f
+            }
+        }
+        return true
     }
 }
