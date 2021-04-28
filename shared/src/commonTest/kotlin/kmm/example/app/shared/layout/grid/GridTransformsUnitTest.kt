@@ -1,5 +1,6 @@
 package kmm.example.app.shared.layout.grid
 
+import kotlin.math.roundToInt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,8 +21,6 @@ class GridTransformsUnitTest {
 
         var cam = GridCameraModel(
             projectionTileSize = 75,
-            projectionWidth = 200,
-            projectionHeight = 300,
         )
 
         val tile1 = GridRect()
@@ -78,5 +77,15 @@ class GridTransformsUnitTest {
         assertEquals(38, output2.y)
         assertEquals(150, output2.w)
         assertEquals(75, output2.h)
+    }
+
+    @Test
+    fun testTransformViewToGridSpaceCoordinates() {
+        val cam = GridCameraModel(
+            projectionTileSize = 75,
+        )
+        val dimen = transformsViewToGridDimen(cam, FractionalPixels(150f, 255f))
+        assertEquals(2, dimen.x.roundToInt())
+        assertEquals(3, dimen.y.roundToInt())
     }
 }

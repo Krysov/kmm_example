@@ -4,21 +4,42 @@ import kotlin.math.round
 import kotlin.math.sign
 
 
-typealias Tiles = Double
-typealias Pixels = Short
+typealias Tile = Double
+typealias Pixel = Short
 
-class GridRect {
-    var x: Tiles = .0
-    var y: Tiles = .0
-    var w: Tiles = .0
-    var h: Tiles = .0
+data class GridRect(
+    var x: Tile = .0,
+    var y: Tile = .0,
+    var w: Tile = .0,
+    var h: Tile = .0,
+)
+
+data class GridTiles(
+    var x: Tile = .0,
+    var y: Tile = .0,
+)
+
+data class ViewRect(
+    var x: Pixel = 0,
+    var y: Pixel = 0,
+    var w: Pixel = 0,
+    var h: Pixel = 0,
+)
+
+data class FractionalPixels(
+    var x: Float = 0f,
+    var y: Float = 0f,
+) {
+    fun minus(pixels: FractionalPixels): FractionalPixels {
+        return FractionalPixels(x - pixels.x, y - pixels.y)
+    }
 }
 
-class ViewRect {
-    var x: Pixels = 0
-    var y: Pixels = 0
-    var w: Pixels = 0
-    var h: Pixels = 0
+fun transformsViewToGridDimen(cam: GridCameraModel, pixels: FractionalPixels): GridTiles {
+    return GridTiles(
+        x = pixels.x.toDouble() / cam.projectionTileSize,
+        y = pixels.y.toDouble() / cam.projectionTileSize,
+    )
 }
 
 fun transformGridToViewSpace(cam: GridCameraModel, rect: GridRect): ViewRect {
