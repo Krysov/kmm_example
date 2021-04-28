@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
+import kmm.example.app.shared.layout.grid.GridCameraModel.Orientation
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -18,7 +19,7 @@ class GridViewUnitTest {
     fun testAttachLayoutDetachItemViews() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val grid = GridView(context)
-        val cam = grid.camera.copy(
+        var cam = grid.camera.copy(
             projection = grid.camera.projection.copy(
                 tileSize = 32
             )
@@ -48,6 +49,29 @@ class GridViewUnitTest {
         assertEquals(2, grid.childCount)
 
         grid.measure(0, 0)
+
+        vsItem = transformGridToViewSpace(cam, tile1)
+        iv = grid.getChildAt(0)
+        lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
+        assertNotEquals(0, iv.measuredWidth)
+        assertNotEquals(0, iv.measuredHeight)
+        assertEquals(vsItem.y.toInt(), lpItem.topMargin)
+        assertEquals(vsItem.x.toInt(), lpItem.leftMargin)
+        assertEquals(vsItem.w.toInt(), lpItem.width)
+        assertEquals(vsItem.h.toInt(), lpItem.height)
+
+        vsItem = transformGridToViewSpace(cam, tile2)
+        iv = grid.getChildAt(1)
+        lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
+        assertNotEquals(0, iv.measuredWidth)
+        assertNotEquals(0, iv.measuredHeight)
+        assertEquals(vsItem.y.toInt(), lpItem.topMargin)
+        assertEquals(vsItem.x.toInt(), lpItem.leftMargin)
+        assertEquals(vsItem.w.toInt(), lpItem.width)
+        assertEquals(vsItem.h.toInt(), lpItem.height)
+
+        cam = cam.copy(orientation = Orientation(offsetX = -0.5, offsetY = 1.5))
+        grid.camera = cam
 
         vsItem = transformGridToViewSpace(cam, tile1)
         iv = grid.getChildAt(0)
