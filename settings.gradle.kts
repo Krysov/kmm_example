@@ -1,8 +1,8 @@
 
 val appGroup = "kmm.example.app"
 val appName = "KMMExample"
-val appVersionName = "0.0.3"
-val appVersionCode = 3
+val appVersionName = "0.0.4"
+val appVersionCode = 4
 
 val androidCompileSdkVersion = 29
 val androidTargetSdkVersion = 29
