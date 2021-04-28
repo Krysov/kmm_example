@@ -7,18 +7,35 @@ import kotlin.math.sign
 typealias Tiles = Double
 typealias Pixels = Short
 
-class GridRect {
-    var x: Tiles = .0
-    var y: Tiles = .0
-    var w: Tiles = .0
-    var h: Tiles = .0
-}
+data class GridRect(
+    var x: Tiles = .0,
+    var y: Tiles = .0,
+    var w: Tiles = .0,
+    var h: Tiles = .0,
+)
 
-class ViewRect {
-    var x: Pixels = 0
-    var y: Pixels = 0
-    var w: Pixels = 0
-    var h: Pixels = 0
+data class GridDimen(
+    var w: Tiles = .0,
+    var h: Tiles = .0,
+)
+
+data class ViewRect(
+    var x: Pixels = 0,
+    var y: Pixels = 0,
+    var w: Pixels = 0,
+    var h: Pixels = 0,
+)
+
+data class FractionalPixels(
+    var x: Float = 0f,
+    var y: Float = 0f,
+)
+
+fun transformsViewToGridDimen(cam: GridCameraModel, pixels: FractionalPixels): GridDimen {
+    return GridDimen(
+        w = pixels.x.toDouble() / cam.projectionTileSize,
+        h = pixels.y.toDouble() / cam.projectionTileSize,
+    )
 }
 
 fun transformGridToViewSpace(cam: GridCameraModel, rect: GridRect): ViewRect {
