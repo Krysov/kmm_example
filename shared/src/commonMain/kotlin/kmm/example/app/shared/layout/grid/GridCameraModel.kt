@@ -16,5 +16,7 @@ data class GridCameraModel(
             this.camera = camera
             onUpdate(camera)
         }
+
+        fun ref(): () -> GridCameraModel = { this.get() }
     }
 }

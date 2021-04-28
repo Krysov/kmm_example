@@ -23,13 +23,12 @@ class GridCameraModelUnitTest {
         con.cam.set(GridCameraModel(poseX = 5.0))
         assertEquals(1, numCallsOnUpdate)
 
+        val refCam = con.cam.ref()
         tmpCam = con.cam.get()
         tmpCam = tmpCam.copy(poseY = 7.0)
         con.cam.set(tmpCam)
         assertEquals(2, numCallsOnUpdate)
-
-        tmpCam = con.cam.get()
-        assertEquals(5, tmpCam.poseX.roundToInt())
-        assertEquals(7, tmpCam.poseY.roundToInt())
+        assertEquals(5, refCam().poseX.roundToInt())
+        assertEquals(7, refCam().poseY.roundToInt())
     }
 }

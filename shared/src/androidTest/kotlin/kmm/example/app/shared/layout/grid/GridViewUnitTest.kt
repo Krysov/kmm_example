@@ -19,6 +19,7 @@ class GridViewUnitTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val grid = GridView(context)
         grid.cam.set(GridCameraModel(projectionTileSize = 32))
+        val cam = grid.cam.ref()
 
         val tile1 = GridRect()
         tile1.x = 1.0
@@ -44,7 +45,7 @@ class GridViewUnitTest {
 
         grid.measure(0, 0)
 
-        vsItem = transformGridToViewSpace(grid.cam.get(), tile1)
+        vsItem = transformGridToViewSpace(cam(), tile1)
         iv = grid.getChildAt(0)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -54,7 +55,7 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        vsItem = transformGridToViewSpace(grid.cam.get(), tile2)
+        vsItem = transformGridToViewSpace(cam(), tile2)
         iv = grid.getChildAt(1)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -64,9 +65,9 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        grid.cam.set(grid.cam.get().copy(poseX = -0.5, poseY = 1.5))
+        grid.cam.set(cam().copy(poseX = -0.5, poseY = 1.5))
 
-        vsItem = transformGridToViewSpace(grid.cam.get(), tile1)
+        vsItem = transformGridToViewSpace(cam(), tile1)
         iv = grid.getChildAt(0)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
@@ -76,7 +77,7 @@ class GridViewUnitTest {
         assertEquals(vsItem.w.toInt(), lpItem.width)
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
-        vsItem = transformGridToViewSpace(grid.cam.get(), tile2)
+        vsItem = transformGridToViewSpace(cam(), tile2)
         iv = grid.getChildAt(1)
         lpItem = iv.layoutParams as ViewGroup.MarginLayoutParams
         assertNotEquals(0, iv.measuredWidth)
