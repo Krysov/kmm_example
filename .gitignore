@@ -10,4 +10,5 @@ build/
 /local.properties
 /.idea/*
 !/.idea/codeStyles
+!/.idea/runConfigurations
 !/.idea/runConfigurations.xml
