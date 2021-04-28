@@ -3,24 +3,9 @@ package kmm.example.app.shared.layout.grid
 import kotlin.math.round
 import kotlin.math.sign
 
+
 typealias Tiles = Double
 typealias Pixels = Short
-
-class GridCamera {
-    val projection: Projection = Projection()
-    val orientation: Orientation = Orientation()
-
-    inner class Projection {
-        var tileSize: Pixels = 0
-        var viewWidth: Pixels = 0
-        var viewHeight: Pixels = 0
-    }
-
-    inner class Orientation {
-        var offsetX: Tiles = 0.0
-        var offsetY: Tiles = 0.0
-    }
-}
 
 class GridRect {
     var x: Tiles = .0
@@ -36,12 +21,12 @@ class ViewRect {
     var h: Pixels = 0
 }
 
-fun transformGridToViewSpace(cam: GridCamera, rect: GridRect): ViewRect {
+fun transformGridToViewSpace(cam: GridCameraModel, rect: GridRect): ViewRect {
     val result = ViewRect()
-    result.x = biasedRoundToShort((rect.x - cam.orientation.offsetX) * cam.projection.tileSize)
-    result.y = biasedRoundToShort((rect.y - cam.orientation.offsetY) * cam.projection.tileSize)
-    result.w = biasedRoundToShort(rect.w * cam.projection.tileSize)
-    result.h = biasedRoundToShort(rect.h * cam.projection.tileSize)
+    result.x = biasedRoundToShort((rect.x - cam.poseX) * cam.projectionTileSize)
+    result.y = biasedRoundToShort((rect.y - cam.poseY) * cam.projectionTileSize)
+    result.w = biasedRoundToShort(rect.w * cam.projectionTileSize)
+    result.h = biasedRoundToShort(rect.h * cam.projectionTileSize)
     return result
 }
 

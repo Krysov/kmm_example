@@ -13,7 +13,13 @@ class GridView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    val camera = GridCamera()
+    val cam = GridCameraModel::Ref{ camera ->
+        measure(
+            camera.projectionWidth.toInt(),
+            camera.projectionWidth.toInt()
+        )
+    }
+
     private val gridViews = HashMap<View, GridRect>()
 
     fun addView(child: View, onGridAt: GridRect) {
@@ -26,7 +32,6 @@ class GridView @JvmOverloads constructor(
         gridViews.remove(child)
         super.onViewRemoved(child)
     }
-
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         for (i in 1..childCount) {
@@ -47,7 +52,7 @@ class GridView @JvmOverloads constructor(
     }
 
     private fun getChildLayoutParams(dimen: GridRect): LayoutParams {
-        val viewRect = transformGridToViewSpace(camera, dimen)
+        val viewRect = transformGridToViewSpace(cam.get(), dimen)
         val lp = MarginLayoutParams(viewRect.w.toInt(), viewRect.h.toInt())
         lp.leftMargin = viewRect.x.toInt()
         lp.topMargin = viewRect.y.toInt()
