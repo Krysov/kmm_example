@@ -19,13 +19,13 @@ class GridNavigationHandlerUnitTest {
         assertEquals(1, cam.get().poseX.roundToInt())
         assertEquals(-2, cam.get().poseY.roundToInt())
 
-        nav.newMotionFrom(FractionalPixels(50, 100))
-        nav.moveTo(FractionalPixels(50, 150))
+        nav.newMotionFrom(FractionalPixels(50f, 100f))
+        nav.moveTo(FractionalPixels(50f, 150f))
         assertEquals(1, numCallsOnUpdate)
         assertEquals(1, cam.get().poseX.roundToInt())
         assertEquals(-3, cam.get().poseY.roundToInt())
 
-        nav.moveTo(FractionalPixels(100, -50))
+        nav.moveTo(FractionalPixels(100f, -50f))
         assertEquals(2, numCallsOnUpdate)
         assertEquals(0, cam.get().poseX.roundToInt())
         assertEquals(1, cam.get().poseY.roundToInt())
