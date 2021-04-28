@@ -20,7 +20,7 @@ class GridView @JvmOverloads constructor(
             camera.projectionWidth.toInt()
         )
     })
-
+    private val nav = GridNavigationHandler(cam)
     private val gridViews = HashMap<View, GridRect>()
     private var touchMostRecentX: Float = 0.0f
     private var touchMostRecentY: Float = 0.0f
@@ -75,25 +75,10 @@ class GridView @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                touchMostRecentX = event.x
-                touchMostRecentY = event.y
+                nav.newMotionFrom(FractionalPixels(event.x, event.y))
             }
             MotionEvent.ACTION_MOVE -> {
-                val cam = cam.get()
-                val deltaX = (touchMostRecentX - event.x) / cam.projectionTileSize
-                val deltaY = (touchMostRecentY - event.y) / cam.projectionTileSize
-                touchMostRecentX = event.x
-                touchMostRecentY = event.y
-                this.cam.set(
-                    cam.copy(
-                        poseX = cam.poseX + deltaX,
-                        poseY = cam.poseY + deltaY,
-                    )
-                )
-            }
-            MotionEvent.ACTION_UP -> {
-                touchMostRecentX = 0f
-                touchMostRecentY = 0f
+                nav.moveTo(FractionalPixels(event.x, event.y))
             }
         }
         return true

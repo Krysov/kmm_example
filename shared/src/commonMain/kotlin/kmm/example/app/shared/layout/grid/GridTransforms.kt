@@ -29,7 +29,11 @@ data class ViewRect(
 data class FractionalPixels(
     var x: Float = 0f,
     var y: Float = 0f,
-)
+) {
+    fun minus(pixels: FractionalPixels): FractionalPixels {
+        return FractionalPixels(x - pixels.x, y - pixels.y)
+    }
+}
 
 fun transformsViewToGridDimen(cam: GridCameraModel, pixels: FractionalPixels): GridDimen {
     return GridDimen(
