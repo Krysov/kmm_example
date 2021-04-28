@@ -19,12 +19,12 @@ class GridViewUnitTest {
     fun testAttachLayoutDetachItemViews() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val grid = GridView(context)
-        var cam = grid.camera.copy(
-            projection = grid.camera.projection.copy(
+        var cam = grid.cam.get().copy(
+            projection = grid.cam.get().projection.copy(
                 tileSize = 32
             )
         )
-        grid.camera = cam
+        grid.cam.set(cam)
 
         val tile1 = GridRect()
         tile1.x = 1.0
@@ -71,7 +71,7 @@ class GridViewUnitTest {
         assertEquals(vsItem.h.toInt(), lpItem.height)
 
         cam = cam.copy(orientation = Orientation(offsetX = -0.5, offsetY = 1.5))
-        grid.camera = cam
+        grid.cam.set(cam)
 
         vsItem = transformGridToViewSpace(cam, tile1)
         iv = grid.getChildAt(0)
