@@ -23,6 +23,7 @@ class GridViewUnitTest {
                 tileSize = 32
             )
         )
+        grid.camera = cam
 
         val tile1 = GridRect()
         tile1.x = 1.0

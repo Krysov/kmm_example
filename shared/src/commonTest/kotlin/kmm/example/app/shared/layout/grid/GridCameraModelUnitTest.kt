@@ -23,6 +23,7 @@ class GridCameraModelUnitTest {
         con.cam.set(GridCameraModel(orientation = Orientation(offsetX = 5.0)))
         assertEquals(1, numCallsOnUpdate)
 
+        tmpCam = con.cam.get()
         tmpCam = tmpCam.copy(orientation = tmpCam.orientation.copy(offsetY = 7.0))
         con.cam.set(tmpCam)
         assertEquals(2, numCallsOnUpdate)
