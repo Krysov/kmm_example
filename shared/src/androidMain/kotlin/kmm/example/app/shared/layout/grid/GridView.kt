@@ -13,7 +13,7 @@ class GridView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
-    val camera = GridCamera()
+    val camera = GridCameraModel()
     private val gridViews = HashMap<View, GridRect>()
 
     fun addView(child: View, onGridAt: GridRect) {

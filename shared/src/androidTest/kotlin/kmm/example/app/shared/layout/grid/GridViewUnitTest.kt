@@ -18,8 +18,11 @@ class GridViewUnitTest {
     fun testAttachLayoutDetachItemViews() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val grid = GridView(context)
-        val cam: GridCamera = grid.camera
-        cam.projection.tileSize = 32
+        val cam = grid.camera.copy(
+            projection = grid.camera.projection.copy(
+                tileSize = 32
+            )
+        )
 
         val tile1 = GridRect()
         tile1.x = 1.0
