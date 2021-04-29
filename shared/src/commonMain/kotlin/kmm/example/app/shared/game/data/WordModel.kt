@@ -22,8 +22,8 @@ data class WordModel(
 ) {
 
     fun getLetterPosition(atLetterIndex: Int): Pair<Short, Short> = Pair(
-        (startAtX + atLetterIndex*direction.x).toShort(),
-        (startAtY + atLetterIndex*direction.y).toShort(),
+        (startAtX + atLetterIndex * direction.x).toShort(),
+        (startAtY + atLetterIndex * direction.y).toShort(),
     )
 
     @Serializable(with = WordDirectionSerializer::class)

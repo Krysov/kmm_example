@@ -18,7 +18,7 @@ class DataStoreUnitTest {
         assertEquals(4 + 14 + 5 - 2, crossword.letters.count())
 
         var entry: LetterModel
-        entry = crossword.getLetterAt(5, 7)
+        entry = crossword.getLetterAt(5, 7) as LetterModel
         assertEquals('A', entry.letter)
         assertEquals(1, entry.words.count())
         assertEquals("BREAK", entry.words[0].answer)
@@ -27,7 +27,7 @@ class DataStoreUnitTest {
         assertEquals(1, entry.words[0].direction.x)
         assertEquals(0, entry.words[0].direction.y)
 
-        entry = crossword.getLetterAt(2, 12)
+        entry = crossword.getLetterAt(2, 12) as LetterModel
         assertEquals('E', entry.letter)
         assertEquals(2, entry.words.count())
         assertEquals("TEST", entry.words[0].answer)
@@ -44,9 +44,11 @@ class DataStoreUnitTest {
         assertEquals(0, entry.words[1].direction.x)
         assertEquals(1, entry.words[1].direction.y)
 
-        entry = crossword.getLetterAt(2, 6)
+        entry = crossword.getLetterAt(2, 6) as LetterModel
         assertEquals(' ', entry.letter)
         assertEquals("CURLY BRACKETS", entry.words[0].answer)
+
+        assertEquals(null, crossword.getLetterAt(3, 3))
     }
 
     private val testData = """
@@ -55,7 +57,7 @@ class DataStoreUnitTest {
         "words": [
             {
                 "i": "1",
-                "x": 4,
+                "x": 3,
                 "y": 12,
                 "d": "W",
                 "q": "What is the purpose of this function? To ___?",

@@ -14,7 +14,9 @@ data class CrosswordModel(
 
     private fun getLetterMap(fromWords: List<WordModel>): Map<String, LetterModel> {
         val result: MutableMap<String, LetterModel> = HashMap(fromWords.count())
-        fromWords.sortedBy { it.index }.forEach { unpackWord(it, result) }
+        fromWords
+            .sortedBy { it.index }
+            .forEach { unpackWord(it, result) }
         return result
     }
 
@@ -23,6 +25,14 @@ data class CrosswordModel(
             val (x, y) = word.getLetterPosition(index)
             val key = getLetterTableKey(x, y)
             val existingLetter = intoLetterTable[key]
+            existingLetter?.let { existing ->
+                if (letter != existing.letter) throw IllegalArgumentException(
+                    """Letter '${letter}' does not match letter '${existing.letter}' at [${x};${y}] 
+                        for words: ${
+                        existing.words.plus(word).map { it.answer }
+                    }""".trimIndent()
+                )
+            }
             val inductedLetter =
                 existingLetter?.copy(words = existingLetter.words.plus(word))
                     ?: LetterModel(letter, listOf(word))
