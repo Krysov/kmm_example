@@ -1,16 +1,12 @@
 package kmm.example.app.shared.game.data
 
+import kmm.example.app.shared.game.data.WordModel.WordDirection
+
 
 data class LetterModel(
     val letter: Char,
     val words: List<String>,
     val questions: List<String>,
-    val indicies: List<Short>,
+    val indices: List<String>,
     val directions: List<WordDirection>,
-) {
-
-    data class WordDirection(
-        val x: Short,
-        val y: Short,
-    )
-}
+)
