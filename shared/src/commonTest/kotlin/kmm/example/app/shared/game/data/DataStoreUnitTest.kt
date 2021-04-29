@@ -9,29 +9,36 @@ class DataStoreUnitTest {
     @Test
     fun testDataStore() {
         val store = CrosswordDataStore()
-        val crossword: Crossword = store.get()
-        var entry: Letter
+        val crossword: CrosswordModel = store.getForId("test_puzzle")
+        val words = crossword.words
+        assertEquals(3, words.count())
+        assertEquals("1", words[0].index)
+        assertEquals("2", words[1].index)
+        assertEquals("3", words[2].index)
+        assertEquals(4 + 14 + 5, crossword.letters.count())
 
-        assertEquals(3, crossword.wordCount)
-        assertEquals(4 + 5 + 8 + 5, crossword.letterCount)
+        var entry: LetterModel
         entry = crossword.getLetterAt(5, 7)
         assertEquals("A", entry.letter)
-        assertEquals(1, entry.words.length)
+        assertEquals(1, entry.words.count())
         assertEquals("BREAK", entry.words[0])
-        assertEquals("What is it that I direly need? A ___?", entry.question[0])
+        assertEquals("What is it that I direly need? A ___?", entry.questions[0])
+        assertEquals("3", entry.indicies[0])
         assertEquals(1, entry.directions[0].x)
         assertEquals(0, entry.directions[0].y)
 
         entry = crossword.getLetterAt(2, 12)
         assertEquals("E", entry.letter)
-        assertEquals(2, entry.words.length)
-        assertEquals("TEST", entry.word[0])
-        assertEquals("CURLY BRACKETS", entry.word[1])
+        assertEquals(2, entry.words.count())
+        assertEquals("TEST", entry.words[0])
+        assertEquals("CURLY BRACKETS", entry.words[1])
         assertEquals("What is the purpose of this function? To ___?", entry.questions[0])
         assertEquals(
             "What are these swirly funny symbols surrounding this data entry?",
             entry.questions[1]
         )
+        assertEquals("1", entry.indicies[0])
+        assertEquals("2", entry.indicies[1])
         assertEquals(-1, entry.directions[0].x)
         assertEquals(0, entry.directions[0].y)
         assertEquals(0, entry.directions[1].x)
@@ -39,36 +46,39 @@ class DataStoreUnitTest {
 
         entry = crossword.getLetterAt(2, 6)
         assertEquals(" ", entry.letter)
-        assertEquals("CURLY BRACKETS", entry.word[0])
+        assertEquals("CURLY BRACKETS", entry.words[0])
     }
 
     val testData = """
-    [
-        {
-            "n": 1,
-            "x": 4,
-            "y": 12,
-            "d": "W",
-            "q": "What is the purpose of this function? To ___?",
-            "a": "TEST"
-        },
-        {
-            "n": 2,
-            "x": 2,
-            "y": 1,
-            "d": "S",
-            "q": "What are these swirly funny symbols surrounding this data entry?",
-            "a": "CURLY BRACKETS"
-        },
-        {
-            "n": 3,
-            "x": 2,
-            "y": 7,
-            "d": "E",
-            "q": "What is it that I direly need? A ___?",
-            "a": "BREAK"
-        }
-    ]
+    {
+        "id": "test_puzzle",
+        "words": [
+            {
+                "i": "1",
+                "x": 4,
+                "y": 12,
+                "d": "W",
+                "q": "What is the purpose of this function? To ___?",
+                "a": "TEST"
+            },
+            {
+                "i": "2",
+                "x": 2,
+                "y": 1,
+                "d": "S",
+                "q": "What are these swirly funny symbols surrounding this data entry?",
+                "a": "CURLY BRACKETS"
+            },
+            {
+                "i": "3",
+                "x": 2,
+                "y": 7,
+                "d": "E",
+                "q": "What is it that I direly need? A ___?",
+                "a": "BREAK"
+            }
+        ]
+    }
     """
 
 }
