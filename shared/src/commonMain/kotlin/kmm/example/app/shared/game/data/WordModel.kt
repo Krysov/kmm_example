@@ -21,6 +21,11 @@ data class WordModel(
     @SerialName("a") val answer: String,
 ) {
 
+    fun getLetterPosition(atLetterIndex: Int): Pair<Short, Short> = Pair(
+        (startAtX + atLetterIndex*direction.x).toShort(),
+        (startAtY + atLetterIndex*direction.y).toShort(),
+    )
+
     @Serializable(with = WordDirectionSerializer::class)
     data class WordDirection(
         val compass: Char,

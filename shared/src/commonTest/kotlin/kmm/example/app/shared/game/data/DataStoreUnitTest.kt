@@ -15,7 +15,7 @@ class DataStoreUnitTest {
         assertEquals("1", words[0].index)
         assertEquals("2", words[1].index)
         assertEquals("3", words[2].index)
-        assertEquals(4 + 14 + 5, crossword.letters.count())
+        assertEquals(4 + 14 + 5 - 2, crossword.letters.count())
 
         var entry: LetterModel
         entry = crossword.getLetterAt(5, 7)
