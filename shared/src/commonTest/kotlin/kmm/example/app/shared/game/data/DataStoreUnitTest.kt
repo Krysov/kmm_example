@@ -21,32 +21,32 @@ class DataStoreUnitTest {
         entry = crossword.getLetterAt(5, 7)
         assertEquals('A', entry.letter)
         assertEquals(1, entry.words.count())
-        assertEquals("BREAK", entry.words[0])
-        assertEquals("What is it that I direly need? A ___?", entry.questions[0])
-        assertEquals("3", entry.indices[0])
-        assertEquals(1, entry.directions[0].x)
-        assertEquals(0, entry.directions[0].y)
+        assertEquals("BREAK", entry.words[0].answer)
+        assertEquals("What is it that I direly need? A ___?", entry.words[0].question)
+        assertEquals("3", entry.words[0].index)
+        assertEquals(1, entry.words[0].direction.x)
+        assertEquals(0, entry.words[0].direction.y)
 
         entry = crossword.getLetterAt(2, 12)
         assertEquals('E', entry.letter)
         assertEquals(2, entry.words.count())
-        assertEquals("TEST", entry.words[0])
-        assertEquals("CURLY BRACKETS", entry.words[1])
-        assertEquals("What is the purpose of this function? To ___?", entry.questions[0])
+        assertEquals("TEST", entry.words[0].answer)
+        assertEquals("CURLY BRACKETS", entry.words[1].answer)
+        assertEquals("What is the purpose of this function? To ___?", entry.words[0].question)
         assertEquals(
             "What are these swirly funny symbols surrounding this data entry?",
-            entry.questions[1]
+            entry.words[1].question
         )
-        assertEquals("1", entry.indices[0])
-        assertEquals("2", entry.indices[1])
-        assertEquals(-1, entry.directions[0].x)
-        assertEquals(0, entry.directions[0].y)
-        assertEquals(0, entry.directions[1].x)
-        assertEquals(1, entry.directions[1].y)
+        assertEquals("1", entry.words[0].index)
+        assertEquals("2", entry.words[1].index)
+        assertEquals(-1, entry.words[0].direction.x)
+        assertEquals(0, entry.words[0].direction.y)
+        assertEquals(0, entry.words[1].direction.x)
+        assertEquals(1, entry.words[1].direction.y)
 
         entry = crossword.getLetterAt(2, 6)
         assertEquals(' ', entry.letter)
-        assertEquals("CURLY BRACKETS", entry.words[0])
+        assertEquals("CURLY BRACKETS", entry.words[0].answer)
     }
 
     private val testData = """
