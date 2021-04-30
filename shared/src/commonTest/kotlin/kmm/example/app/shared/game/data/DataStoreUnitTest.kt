@@ -9,13 +9,10 @@ class DataStoreUnitTest {
     @Test
     fun testDataModel() {
         val words = crossword.words
-        println(words)
-        println(words[0])
         assertEquals(4, words.count())
         assertEquals("1", words[0].index)
         assertEquals("2", words[1].index)
         assertEquals("3", words[2].index)
-        println(crossword.letters)
         // sum of the length of all words minus the num of intersections
         assertEquals(4 + 14 + 5 + 5 - 3, crossword.letters.count())
     }

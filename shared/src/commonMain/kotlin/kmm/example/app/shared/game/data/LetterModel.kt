@@ -6,6 +6,9 @@ data class LetterModel(
     val indices: List<Short>,
     val words: List<WordModel>,
 ) {
-    fun getLetterPosition(): Pair<Short, Short> = words[0].getLetterPosition(indices[0].toInt())
-    fun getWordsLedByThis(): List<WordModel> = words.filterIndexed { i, _ -> i == 0 }
+    fun getLetterPosition(): Pair<Short, Short> =
+        words[0].getLetterPosition(indices[0].toInt())
+
+    fun getWordsLedByThis(): List<WordModel> =
+        words.filterIndexed { i, _ -> indices[i].toInt() == 0 }
 }
