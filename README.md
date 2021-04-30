@@ -6,7 +6,7 @@ Some of the current Kotlin Multiplatform capabilities caught my attention and I 
 familiarize myself with contemporary and upcoming work flows.
 
 ### As Of Now
-![Current State of the Android UI](/info/android_2021-04-30_14-14-09.mp4)
+![Current State of the Android UI](https://user-images.githubusercontent.com/12496282/116701267-00fbfe00-a9c8-11eb-8b52-18d172e95558.gif)
 
 Running a test suit between the Android and shared Kotlin codebase was mostly pain free as compared to React Native.
 Putting together data, math, logic and even some ui components in a test driven fashion went ahead smoothly although
