@@ -21,6 +21,7 @@ class DataStoreUnitTest {
         entry = crossword.getLetterAt(5, 7) as LetterModel
         assertEquals('A', entry.letter)
         assertEquals(1, entry.words.count())
+        assertEquals(3, entry.indices[0])
         assertEquals("BREAK", entry.words[0].answer)
         assertEquals("What is it that I direly need? A ___?", entry.words[0].question)
         assertEquals("3", entry.words[0].index)
@@ -30,6 +31,8 @@ class DataStoreUnitTest {
         entry = crossword.getLetterAt(2, 12) as LetterModel
         assertEquals('E', entry.letter)
         assertEquals(2, entry.words.count())
+        assertEquals(1, entry.indices[0])
+        assertEquals(11, entry.indices[1])
         assertEquals("TEST", entry.words[0].answer)
         assertEquals("CURLY BRACKETS", entry.words[1].answer)
         assertEquals("What is the purpose of this function? To ___?", entry.words[0].question)

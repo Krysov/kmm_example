@@ -34,12 +34,19 @@ data class CrosswordModel(
                 )
             }
             val inductedLetter =
-                existingLetter?.copy(words = existingLetter.words.plus(word))
-                    ?: LetterModel(letter, listOf(word))
+                existingLetter?.copy(
+                    words = existingLetter.words.plus(word),
+                    indices = existingLetter.indices.plus(index.toShort()),
+                ) ?: LetterModel(letter, listOf(index.toShort()), listOf(word))
             intoLetterTable[key] = inductedLetter
         }
     }
 
     private fun getLetterTableKey(x: Short, y: Short): String = "${x}_${y}"
-    
+
+    private fun getWordMap(forWordList: List<WordModel>): Map<String, WordModel> {
+        val result = HashMap<String, WordModel>(forWordList.count())
+        forWordList.forEach { word -> result[word.index] = word }
+        return result
+    }
 }
