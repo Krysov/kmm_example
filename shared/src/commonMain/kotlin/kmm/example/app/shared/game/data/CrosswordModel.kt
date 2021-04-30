@@ -28,7 +28,7 @@ data class CrosswordModel(
             existingLetter?.let { existing ->
                 if (letter != existing.letter) throw IllegalArgumentException(
                     """Letter '${letter}' does not match letter '${existing.letter}' at [${x};${y}] 
-                        for words: ${
+                        for the intersecting words: ${
                         existing.words.plus(word).map { it.answer }
                     }""".trimIndent()
                 )
